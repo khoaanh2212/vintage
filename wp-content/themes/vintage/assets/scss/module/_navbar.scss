@@ -11,13 +11,20 @@ nav {
     height: 120px;
     display: flex;
     align-items: center;
+
     img {
       height: 90px;
+      @extend .animate-ease-out;
+
+      @media (max-width: 855px) {
+        height: 44px;
+      }
     }
   }
 
   .navbar-right {
     .main-menu {
+      color: white;
       height: 120px;
       display: flex;
       align-items: center;
@@ -103,6 +110,29 @@ nav {
             }
           }
         }
+      }
+      #flags {
+        li {
+          display: inline-block;
+        }
+      }
+    }
+
+    .languages {
+      &:hover a {
+        opacity: 1 !important;
+      }
+
+      a {
+        margin: 0 5px;
+
+        &:hover {
+          opacity: 0.5 !important;
+        }
+      }
+
+      img {
+        height: 22px;
       }
     }
   }
