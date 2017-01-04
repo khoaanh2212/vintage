@@ -4,16 +4,22 @@
  * User: kanguyen
  * Date: 11/15/16
  * Time: 5:18 PM
- */ ?>
+ */
+?>
 
 <html>
 <head>
-    <title>Tutorial theme</title>
+    <title><?php is_front_page() ? bloginfo('name') : wp_title(''); ?></title>
     <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
-    <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
-    <script src="<?php echo esc_url(get_template_directory_uri()); ?>/scripts/jquery.min.js"></script>
+    <link rel="shortcut icon" type="image/png" href="<?php bloginfo('template_url'); ?>/assets/img/favicon.ico"/>
+    <script src="<?php echo esc_url(get_template_directory_uri()); ?>/scripts/jquery.min.1.9.1.js"></script>
     <script src="<?php echo esc_url(get_template_directory_uri()); ?>/scripts/bootstrap.min.js"></script>
     <script src="<?php echo esc_url(get_template_directory_uri()); ?>/scripts/jquery.rotate.min.js"></script>
+
+    <script src="<?php echo esc_url(get_template_directory_uri()); ?>/vendor/magnify-master/Event.js"></script>
+    <script src="<?php echo esc_url(get_template_directory_uri()); ?>/vendor/magnify-master/Magnifier.js"></script>
+
+    <script src="<?php echo esc_url(get_template_directory_uri()); ?>/vendor/prettyPhoto_compressed_3.1.6/js/jquery.prettyPhoto.js"></script>
     <script src="<?php echo esc_url(get_template_directory_uri()); ?>/scripts/custom.js"></script>
 </head>
 <body>
@@ -38,6 +44,9 @@
             $menuName = $lang == 'vi' ? 'vintage-vi' : 'Vintage';
             $menuItems = wp_get_nav_menu_items($menuName, array('order' => 'DESC')); ?>
             <ul class="main-menu list-inline no-margin">
+                <li class="item"><a
+                            href="<?= get_home_url() ?>"><?php echo($lang == 'vi' ? 'TRANG CHỦ' : 'HOMEPAGE'); ?></a>
+                </li>
                 <?php
                 $count = 0;
                 $submenu = false;
@@ -50,8 +59,8 @@
                         $parent_id = $item->ID;
                         if ($menuItems[$key + 1] && $menuItems[$key + 1]->menu_item_parent == $parent_id) { ?>
                             <li class="item dropdown">
-                            <a href="<?php echo $link; ?>" data-toggle="dropdown"><?php echo $title; ?> <i
-                                    class="fa fa-angle-down"></i></a>
+                            <a href="<?php echo $link; ?>" data-toggle="dropdown"><?= $title ?> <i
+                                        class="fa fa-angle-down"></i></a>
                             <?php
                         } else {
                             ?>
@@ -68,8 +77,10 @@
 
                     <?php if ($parent_id == $item->menu_item_parent) { ?>
 
-                    <?php if (!$submenu) {
-                        $submenu = true; ?>
+                    <?php
+                    if (!$submenu) {
+                        $submenu = true;
+                        ?>
                         <ul class="list-unstyled dropdown-menu no-margin">
                     <?php } ?>
                     <li><a href="<?php echo $link; ?>"><i class="fa fa-angle-right"></i><?php echo $title; ?></a></li>
@@ -90,38 +101,16 @@
                 <li class="divine visible-sm visible-md visible-lg"></li>
                 <li class="item languages">
                     <a href="<?php echo get_site_url() . "/vi" ?>"><img
-                            src="<?php bloginfo('template_url'); ?>/assets/img/flag-vn.jpg"></a>
-                    <a href="<?php echo get_site_url() . "/en"?>"><img
-                            src="<?php bloginfo('template_url'); ?>/assets/img/flag-us.jpg"></a>
+                                src="<?php bloginfo('template_url'); ?>/assets/img/flag-vn.jpg"></a>
+                    <a href="<?php echo get_site_url() . "/en" ?>"><img
+                                src="<?php bloginfo('template_url'); ?>/assets/img/flag-us.jpg"></a>
                 </li>
-                <!--<ul id="flags">
-                    <?php /*pll_the_languages(array('show_flags' => 1, 'show_names' => 0)); */ ?>
-                </ul>-->
+                <li class="item social-list">
+                    <a href="https://www.facebook.com/Công-ty-Nhập-Khẩu-Phân-Phối-Rượu-Vang-Vintage-305633576499335/"><i
+                                class="fa fa-facebook-square"></i></a>
+                    <a href="#"><i class="fa fa-twitter-square"></i></a>
+                </li>
             </ul>
-
-            <!--<ul class="main-menu list-inline no-margin">
-                <li class="item dropdown">
-                    <a href="#" data-toggle="dropdown">Sản Phẩm <i class="fa fa-angle-down"></i></a>
-                    <ul class="list-unstyled dropdown-menu no-margin">
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Rượu vang Chile Casas Patronales</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Rượu vang Tây Ban Nha Felix Solis</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Rượu vang Ý Travaglini</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Rượu vang Pháp Producta</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Rượu vang Pháp Sovex Grands</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Rượu vang Chile San Marco</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Rượu vang Chile Paso Fino</a></li>
-                    </ul>
-                </li>
-                <li class="item"><a href="#">Hộp Quà</a></li>
-                <li class="item"><a href="#">Hình Ảnh</a></li>
-                <li class="item"><a href="#">Tin Tức</a></li>
-                <li class="item"><a href="#">Liên hệ</a></li>
-                <li class="divine visible-sm visible-md visible-lg"></li>
-                <li class="item languages">
-                    <a href="#"><img src="<?php /*bloginfo('template_url'); */?>/assets/img/flag-vn.jpg"></a>
-                    <a href="#"><img src="<?php /*bloginfo('template_url'); */?>/assets/img/flag-us.jpg"></a>
-                </li>
-            </ul>-->
         </div>
     </div>
 </nav>

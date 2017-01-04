@@ -5,86 +5,53 @@
  * Date: 11/23/16
  * Time: 4:36 PM
  */
+$listCategoryOfPost = get_the_category();
+$categoryDetails = get_category($cat, array());
+$categoryLink = get_category_link($categoryDetails);
+$lang = get_bloginfo("language");
 
-get_header(); ?>
-<?php
-
-$categories = get_the_category_by_ID($cat);
-$agrCategory = array('category' => $cat);
-$postsCategory = get_posts($agrCategory);
-$firstPost = false;
-if (count($postsCategory) > 0) {
-    $firstPost = $postsCategory[0];
-    setup_postdata($firstPost);
-    $currentPostId = get_the_ID();
-    $currentContent = get_the_content();
-    $thumb_id = get_post_thumbnail_id();
-    $thumb_url_array = wp_get_attachment_image_src($thumb_id, 'thumbnail-size', true);
-    $thumb_url = $thumb_url_array[0];
+$cate_id = $categoryDetails->cat_ID;
+if ($cate_id == 44 || $cate_id == 15) {
+    $thumb = '/assets/img/thumb-Casas-Patronales.png';
+} elseif ($cate_id == 46 || $cate_id == 39) {
+    $thumb = '/assets/img/thumb-paso-fino-white.png';
+} elseif ($cate_id == 48 || $cate_id == 35) {
+    $thumb = '/assets/img/thumb-san-marco-gran-reverva-white.png';
+} elseif ($cate_id == 50 || $cate_id == 27) {
+    $thumb = '/assets/img/thumb-producta-vignobles-white.png';
+} elseif ($cate_id == 52 || $cate_id == 31) {
+    $thumb = '/assets/img/thumb-sovex-grands-chateaux-white.png';
+} elseif ($cate_id == 54 || $cate_id == 19) {
+    $thumb = '/assets/img/thumb-travaglini-white.png';
+} elseif ($cate_id == 56 || $cate_id == 17) {
+    $thumb = '/assets/img/thumb-felix-solis-white.png';
 }
 
-?>
-<?php if ($firstPost) { ?>
-    <div id="product-detail">
-        <div class="product-detail-inner">
-            <div class="product-detail">
-                <h1 class="title"><?php the_title() ?></h1>
-                <ul class="list-inline no-margin list-child">
-                    <?php
+$is_casas_patronal_page = $cat == 44 || $cat == 15;
 
+get_header(); ?>
 
-                    $listCategoryOfPost = get_the_category();
-                    foreach ($listCategoryOfPost as $categoryOfPost) {
-                        $agrCategory = array('category' => $categoryOfPost->cat_ID);
-                        $postsCategory = get_posts($agrCategory);
-                        foreach ($postsCategory as $post) {
-                            setup_postdata($post);
-                            if ($post->ID == $currentPostId) {
-                                ?>
-                                <li class="active"><a
-                                        href="<?php echo esc_url(get_permalink()); ?>"><?php the_title(); ?></a></li>
-                            <?php } else {
-                                ?>
-                                <li><a href="<?php echo esc_url(get_permalink()); ?>"><?php the_title(); ?></a></li>
-                            <?php }
-                        }
-                    }
-                    ?>
+<div id="product-list" class="container-responsive">
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="breadcrumb no-margin">
+                <div class="thumb"><img
+                        src="<?=bloginfo( 'template_url' ).$thumb?>"></div>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><span><?=($lang == 'vi' ? 'SẢN PHẨM' :'PRODUCTS')?></span></li>
+                    <li><i class="fa fa-angle-right"></i></li>
+                    <li><span><?= $categoryDetails->name ?></span></li>
                 </ul>
-                <div class="clearfix"></div>
-                <div class="content">
-                    <div class="description">
-                        <?php echo $currentContent; ?>
-                    </div>
-                    <div class="image">
-                        <img src="<?php echo $thumb_url; ?>">
-                    </div>
-                </div>
-
-                <!--<h1 class="title">Reserva Privada</h1>
-            <ul class="list-inline no-margin list-child">
-                <li class="active"><a href="#">Cabernet Sauvignon</a></li>
-                <li><a href="#">Carménère</a></li>
-                <li><a href="#">Syrah</a></li>
-                <li><a href="#">Pinot Noir</a></li>
-                <li><a href="#">Chardonnay</a></li>
-                <li><a href="#">Sauvignon Blanc</a></li>
-            </ul>
-            <div class="clearfix"></div>
-            <div class="content">
-                <div class="description">
-                    <p>These are complex wines, in which fruity notes combine with smoked and Sweetness of tones resulting from the wine's fine evolution in French oak. In the mouth they are soft, elegant, concentrated and fresh. The expression of our terroirs finds its greatest potential in the Reserva Privada wines.</p>
-                    <p>Cellaring Recommendations: 5 to 6 years</p>
-                    <p>Time in barrels: 10 to 12 months</p>
-                    <p>Tonnes per hectare: 6 to 8 tonnes per hectare.</p>
-                    <p>Serving recommendation: 18°C</p>
-                </div>
-                <div class="image">
-                    <img src="<?php /*bloginfo( 'template_url' ); */ ?>/assets/img/NequeV.png">
-                </div>
-            </div>-->
             </div>
         </div>
+        <div class="clearfix"></div>
+
+        <?php
+        if ($is_casas_patronal_page) {
+            require('category-casa-patronal.content.php');
+        } else {
+            require('category.content.php');
+        } ?>
     </div>
-<?php } ?>
+</div>
 <?php get_footer(); ?>
