@@ -6,3 +6,14 @@
 @import "navbar";
 @import "home";
 @import "product-detail";
+@import "packager";
+@import "news";
+@import "contact";
+@import "product-list";
+@import "pictures";
+
+.container-responsive {
+  position: relative;
+  height: calc(100% - 120px);
+  overflow: auto;
+}

@@ -1,10 +1,50 @@
 * {
-  padding: 0;
-  margin: 0;
   font: 14px 'Open Sans', sans-serif;
 }
 
 body {
-  background: url('../../assets/img/bg-1.jpg');
+  background: url('../../assets/img/ham-ruou.jpg') center;
+  background-size: cover;
   overflow: hidden;
+}
+
+.breadcrumb {
+  background: $primary url('../../assets/img/bkg_stripe.png');
+  color: white;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  .thumb {
+    width: 100%;
+
+    img {
+      height: 50px;
+    }
+  }
+
+  span {
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 12px;
+  }
+
+  .list-inline {
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    li {
+      cursor: default;
+    }
+  }
+}
+
+div.pp_overlay {
+  background: none;
+}
+
+div.pp_pic_holder_wrapper {
+  background: transparent url(../../assets/img/bkg_stripe_brotherhood.png);
 }

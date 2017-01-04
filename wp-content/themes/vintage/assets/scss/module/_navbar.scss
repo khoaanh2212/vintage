@@ -1,6 +1,6 @@
 nav {
   &.navbar-default {
-    background: $primary;
+    background: $primary url('../../assets/img/bkg_stripe.png');
     min-height: 120px;
     position: relative;
     z-index: 1;
@@ -13,11 +13,15 @@ nav {
     align-items: center;
 
     img {
-      height: 90px;
+      height: 100px;
       @extend .animate-ease-out;
+    }
 
-      @media (max-width: 855px) {
-        height: 44px;
+    @media (min-width: 767px) and (max-width: 1024px) {
+      padding: 0 10px;
+
+      img {
+        height: 90px;
       }
     }
   }
@@ -55,6 +59,29 @@ nav {
 
         > .fa {
           margin-left: 5px;
+        }
+
+        @media (min-width: 767px) and (max-width: 1024px) {
+          padding: 0 10px;
+          letter-spacing: normal;
+
+          > a {
+            font-size: 13px;
+          }
+        }
+      }
+
+      .social-list {
+        padding: 0;
+
+        a {
+          margin: 0 2px;
+          font-size: 18px;
+          opacity: 1 !important;
+
+          &:hover {
+            color: lighten($primary, 30%);
+          }
         }
       }
 

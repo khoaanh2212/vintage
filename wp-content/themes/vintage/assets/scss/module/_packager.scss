@@ -1,0 +1,58 @@
+#packager {
+  background: transparent url(../../assets/img/bkg_stripe_brotherhood.png);
+
+  .item-inner {
+    height: 200px;
+    border: 5px solid darken($primary, 20%);
+  }
+
+  .item {
+    margin: 15px 0;
+
+    &-inner {
+      background: url('../../assets/img/product-bg.jpg');
+      background-size: cover;
+      position: relative;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &.giftbox {
+    .item-inner {
+      &:hover {
+        .info {
+          opacity: 1;
+        }
+      }
+
+      .info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        color: white;
+        background: rgba(black, 0.5);
+        padding: 10px;
+        opacity: 0;
+        @extend .animate-ease-out;
+
+        h5 {
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-size: 12px;
+          margin: 0 0 3px;
+        }
+
+        .price {
+          font-weight: 700;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
